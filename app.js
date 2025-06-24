@@ -59,6 +59,27 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Base API route
+app.get('/api', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Tailor Backend API',
+    version: '1.0.0',
+    endpoints: {
+      auth: '/api/auth',
+      users: '/api/users',
+      requisitions: '/api/requisitions',
+      health: '/health'
+    },
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Handle favicon requests
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end(); // No content
+});
+
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/requisitions', requisitionRoutes);
