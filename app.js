@@ -29,13 +29,19 @@ app.use(limiter);
 // CORS configuration
 app.use(cors({
   origin: [
+    // Local development URLs
     'http://localhost:3000',
     'http://localhost:3001',
     'http://localhost:3002',
     'http://127.0.0.1:3000',
     'http://127.0.0.1:3001',
-    'http://127.0.0.1:3002'
-  ],
+    'http://127.0.0.1:3002',
+    // Production URLs - add your Vercel URL here
+    process.env.FRONTEND_URL,
+    'https://newtailor.vercel.app', // Replace with your actual Vercel URL
+    // Allow any vercel.app subdomain (more flexible)
+    /.*\.vercel\.app$/,
+  ].filter(Boolean), // Remove undefined values
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
