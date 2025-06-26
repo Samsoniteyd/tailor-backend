@@ -13,6 +13,8 @@ router.get('/', requisitionController.getAllRequisitions);
 router.get('/:id', requisitionController.getRequisition);
 router.post('/', validate(createRequisitionSchema), requisitionController.createRequisition);
 router.put('/:id', validate(updateRequisitionSchema), requisitionController.updateRequisition);
+router.patch('/:id', requisitionController.updateRequisitionPartial);
 router.delete('/:id', requisitionController.deleteRequisition);
+router.post('/:id/notes', requisitionController.addNoteToRequisition);
 
 module.exports = router; 

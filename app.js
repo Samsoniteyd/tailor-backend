@@ -65,6 +65,15 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Add the test endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'healthy', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Connection successful', timestamp: new Date().toISOString() });
+});
+
 // Base API route
 app.get('/api', (req, res) => {
   res.status(200).json({
@@ -75,7 +84,9 @@ app.get('/api', (req, res) => {
       auth: '/api/auth',
       users: '/api/users',
       requisitions: '/api/requisitions',
-      health: '/health'
+      health: '/health',
+      'api-health': '/api/health',
+      test: '/api/test'
     },
     timestamp: new Date().toISOString()
   });
@@ -90,6 +101,7 @@ app.get('/favicon.ico', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/requisitions', requisitionRoutes);
 app.use('/api/users', userRoutes);
+
 
 // 404 handler
 app.use(notFound);

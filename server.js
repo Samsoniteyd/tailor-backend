@@ -1,4 +1,11 @@
 require('dotenv').config();
+
+// Add this debug logging at the top
+console.log('🔍 Environment Check:');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
+console.log('PORT:', process.env.PORT);
+
 const app = require('./app');
 const connectDB = require('./src/config/db');
 

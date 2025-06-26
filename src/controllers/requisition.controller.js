@@ -47,6 +47,20 @@ const updateRequisition = catchAsync(async (req, res) => {
   });
 });
 
+const updateRequisitionPartial = catchAsync(async (req, res) => {
+  const requisition = await requisitionService.updateRequisition(
+    req.params.id,
+    req.user._id,
+    req.body
+  );
+  
+  res.json({
+    status: 'success',
+    message: 'Requisition updated successfully',
+    data: { requisition }
+  });
+});
+
 const deleteRequisition = catchAsync(async (req, res) => {
   await requisitionService.deleteRequisition(req.params.id, req.user._id);
   
@@ -56,10 +70,26 @@ const deleteRequisition = catchAsync(async (req, res) => {
   });
 });
 
+const addNoteToRequisition = catchAsync(async (req, res) => {
+  const requisition = await requisitionService.addNoteToRequisition(
+    req.params.id,
+    req.user._id,
+    req.body.note
+  );
+  
+  res.json({
+    status: 'success',
+    message: 'Note added successfully',
+    data: { requisition }
+  });
+});
+
 module.exports = {
   getAllRequisitions,
   getRequisition,
   createRequisition,
   updateRequisition,
-  deleteRequisition
+  updateRequisitionPartial,
+  deleteRequisition,
+  addNoteToRequisition
 }; 

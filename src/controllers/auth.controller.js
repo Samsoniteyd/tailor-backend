@@ -21,6 +21,15 @@ const login = catchAsync(async (req, res) => {
   });
 });
 
+const logout = catchAsync(async (req, res) => {
+  // For JWT tokens, logout is typically handled client-side by removing the token
+  // But we can provide a success response
+  res.json({
+    status: 'success',
+    message: 'Logged out successfully'
+  });
+});
+
 const getProfile = catchAsync(async (req, res) => {
   const user = await authService.getUserById(req.user._id);
   
@@ -52,6 +61,7 @@ const deleteProfile = catchAsync(async (req, res) => {
 module.exports = {
   register,
   login,
+  logout,
   getProfile,
   updateProfile,
   deleteProfile

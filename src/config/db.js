@@ -2,6 +2,16 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
+    // Check if MONGO_URI exists
+    if (!process.env.MONGO_URI) {
+      console.error('❌ MONGO_URI environment variable is not defined');
+      console.log('Available environment variables:', Object.keys(process.env).filter(key => key.includes('MONGO')));
+      process.exit(1);
+    }
+
+    console.log('🔗 Attempting to connect to MongoDB...');
+    console.log('🔗 MONGO_URI exists:', !!process.env.MONGO_URI);
+    
     // MongoDB connection options
     const options = {
       useNewUrlParser: true,
@@ -28,6 +38,7 @@ const connectDB = async () => {
 
   } catch (err) {
     console.error('❌ MongoDB connection error:', err.message);
+    console.error('❌ Full error:', err);
     process.exit(1);
   }
 };
